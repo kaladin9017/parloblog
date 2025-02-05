@@ -1,0 +1,47 @@
+<header>
+    <nav class="navbar">
+        <a href="/" class="parlo-logo">
+            <img src="{{ "images/parlo-logo-boy.png" | relURL }}" alt="Parlo Logo">
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="navbar-links-container">
+            <ul class="navbar-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/pricing">Pricing</a></li>
+                <li><a href="/get-started" class="nav-button">Get Started</a></li>
+            </ul>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-button" aria-label="Open Menu">
+            <i class="fas fa-bars"></i>  <!-- Use 'fas' instead of 'fa' -->
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu">
+        <button id="mobile-menu-button-close" aria-label="Close Menu">
+            <i class="fa fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="/about">About</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li>
+                <a href="/features">Features</a>
+                <button class="plus-icon" aria-label="Expand Submenu">
+                    <i class="fa fa-plus"></i>
+                </button>
+                <ul id="category-submenu">
+                    <li><a href="/features/chat">Chat</a></li>
+                    <li><a href="/features/ai-assist">AI Assist</a></li>
+                    <li><a href="/features/analytics">Analytics</a></li>
+                </ul>
+            </li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="/get-started">Get Started</a></li>
+        </ul>
+    </div>
+</header>

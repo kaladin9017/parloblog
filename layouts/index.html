@@ -1,0 +1,10 @@
+{{ define "main" }}
+    <section>
+        <h1>Welcome to {{ .Site.Title }}</h1>
+        <p>{{ .Site.Params.description }}</p>
+
+        {{ range first 3 (where .Site.RegularPages "Type" "post") }}
+            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+        {{ end }}
+    </section>
+{{ end }}

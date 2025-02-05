@@ -1,0 +1,122 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%; // ✅ Ensures full width without overflowing
+    max-width: 100vw; // ✅ Prevents the navbar from exceeding viewport width
+    padding: 10px 20px; // ✅ Adds space on the left and right
+    background: white;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+
+    .parlo-logo img {
+        max-height: 44px;
+    }
+
+    .navbar-links-container {
+        display: flex;
+
+        .navbar-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            padding-right: 2em;
+            li {
+                a {
+                    color: #333;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    padding: 10px 15px;
+                    transition: color 0.3s ease-in-out;
+
+                    &:hover {
+                        color: #ffcc00;
+                    }
+                }
+            }
+        }
+    }
+
+    // Mobile Menu Button (Hidden by Default, Visible on Small Screens)
+    #mobile-menu-button {
+        display: none; // Hidden by default on large screens
+        background: none;
+        border: none;
+        font-size: 32px;
+        color: #333;
+        cursor: pointer;
+
+        @media (max-width: 960px) {
+            display: block; // ✅ Show on mobile
+            position: absolute;
+            right: 50px; // ✅ Adds space from the right edge
+            top: 50%;
+            transform: translateY(-50%); // ✅ Centers it vertically
+            padding: 10px; // ✅ Adds some tap-friendly spacing
+        }
+    }
+
+
+
+    // Hide navbar links on mobile
+    @media (max-width: 960px) {
+        .navbar-links-container {
+            display: none;
+        }
+    }
+}
+
+// Mobile Menu (Hidden by Default)
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; // ✅ Prevents overflow by ensuring it never exceeds viewport width
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    transform: translateX(-100%); // ✅ Ensures menu is fully hidden offscreen initially
+    transition: transform 0.3s ease-in-out;
+    padding: 20px;
+    z-index: 1000;
+
+    ul {
+        list-style: none;
+        text-transform: uppercase;
+        font-size: 20px;
+
+        li {
+            padding: 15px 0;
+
+            a {
+                color: white;
+                text-decoration: none;
+
+                &:hover {
+                    color: #ffcc00;
+                }
+            }
+        }
+    }
+
+    #mobile-menu-button-close {
+        font-size: 30px;
+        background: none;
+        border: none;
+        color: white;
+        text-align: right;
+        display: block;
+        margin-bottom: 20px;
+        cursor: pointer;
+
+        &:hover {
+            color: #ffcc00;
+        }
+    }
+
+    &.-open {
+        transform: translateX(0); // ✅ Makes sure menu slides in correctly
+    }
+}

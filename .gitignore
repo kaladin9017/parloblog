@@ -1,6 +1,7 @@
 # Local Netlify folder
 .netlify
 public
+resources/
 
 # Package Files
 node_modules/

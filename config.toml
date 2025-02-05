@@ -1,9 +1,12 @@
 baseURL = "https://blog.parloapp.io"
 languageCode = 'en-us'
 title = 'Parlo App'
-theme = 'netlify-basic'
-description = 'The fun, easy, and interactive way to learn French—practice speaking, reading, and growing your skills one conversation at a time!'
+theme = ''
 googleAnalytics = ""
+
+[params]
+    description = 'The fun, easy, and interactive way to learn French—practice speaking, reading, and growing your skills one conversation at a time!'
+    favicon = "/images/favicon.ico"
 
 [taxonomies]
   category = "categories"
@@ -16,3 +19,11 @@ googleAnalytics = ""
 
 [permalinks]
   page = "/:slug/"
+
+[menu]
+    [[menu.main]]
+        name = "About"
+        url = "/about"
+    [[menu.main]]
+        name = "Blog"
+        url = "/blog"
