@@ -1,4 +1,18 @@
-baseURL = 'http://hugo-quickstart-template.netlify.com'
+baseURL = "https://blog.parloapp.io"
 languageCode = 'en-us'
-title = 'Netlify + Hugo Quickstart'
+title = 'Parlo App'
 theme = 'netlify-basic'
+description = 'The fun, easy, and interactive way to learn French—practice speaking, reading, and growing your skills one conversation at a time!'
+googleAnalytics = ""
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[author.social]
+  facebook = ""
+  github = ""
+  twitter = ""
+
+[permalinks]
+  page = "/:slug/"
