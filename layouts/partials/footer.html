@@ -1,3 +1,209 @@
-<footer>
-    <p>© {{ now.Year }} {{ .Site.Title }}</p>
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <a href="/" class="footer-logo">
+                <img src="{{ "images/parlo-logo-boy.png" | relURL }}" alt="Parlo Logo">
+                <span>Parlo</span>
+            </a>
+            <p class="footer-tagline">The fun, easy, and interactive way to learn French.</p>
+        </div>
+        
+        <div class="footer-links">
+            <div class="footer-links-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="https://parloapp.io/about" target="_blank" rel="noopener noreferrer">About</a></li>
+                    <li><a href="{{ "/faq" | relURL }}">FAQ</a></li>
+                    <li><a href="{{ "/get-started" | relURL }}">Get Started</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="{{ "/posts" | relURL }}">Blog</a></li>
+                    <li><a href="{{ "/learn" | relURL }}">Learning Resources</a></li>
+                    <li><a href="{{ "/contact" | relURL }}">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-newsletter">
+            <h4>Stay Updated</h4>
+            <p>Get the latest news and learning tips from Parlo.</p>
+            <a href="{{ "/get-started" | relURL }}" class="cta-button-small">Subscribe</a>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-container">
+            <p>&copy; {{ now.Format "2006" }} Parlo. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="{{ "/privacy" | relURL }}">Privacy Policy</a>
+                <a href="{{ "/terms" | relURL }}">Terms of Service</a>
+            </div>
+        </div>
+    </div>
 </footer>
+
+<style>
+    /* Footer Styles */
+    .site-footer {
+        background-color: #f8f9fa;
+        padding-top: 60px;
+        margin-top: 60px;
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: 2fr 2fr 1fr;
+        gap: 40px;
+    }
+    
+    .footer-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+    }
+    
+    .footer-logo img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+    
+    .footer-logo span {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--color-dark);
+    }
+    
+    .footer-tagline {
+        font-size: 0.9rem;
+        color: var(--color-gray-600);
+        margin: 0;
+    }
+    
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+    
+    .footer-links-column h4 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-dark);
+        margin-bottom: 20px;
+        margin-top: 0;
+    }
+    
+    .footer-links-column ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .footer-links-column li {
+        margin-bottom: 12px;
+    }
+    
+    .footer-links-column a {
+        color: var(--color-gray-600);
+        text-decoration: none;
+        transition: color 0.2s;
+        font-size: 0.9rem;
+    }
+    
+    .footer-links-column a:hover {
+        color: var(--color-dark);
+    }
+    
+    .footer-newsletter h4 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-dark);
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+    
+    .footer-newsletter p {
+        font-size: 0.9rem;
+        color: var(--color-gray-600);
+        margin-bottom: 20px;
+    }
+    
+    .footer-bottom {
+        border-top: 1px solid var(--color-gray-200);
+        margin-top: 40px;
+        padding: 20px 0;
+    }
+    
+    .footer-bottom .footer-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.85rem;
+        color: var(--color-gray-600);
+        margin: 0;
+    }
+    
+    .footer-legal {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .footer-legal a {
+        font-size: 0.85rem;
+        color: var(--color-gray-600);
+        text-decoration: none;
+    }
+    
+    .footer-legal a:hover {
+        color: var(--color-dark);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .footer-container {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .footer-newsletter {
+            grid-column: span 2;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .footer-container {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .footer-newsletter {
+            grid-column: auto;
+        }
+        
+        .footer-bottom .footer-container {
+            flex-direction: column;
+            gap: 15px;
+        }
+    }
+</style>

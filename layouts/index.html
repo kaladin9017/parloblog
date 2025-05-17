@@ -1,10 +1,268 @@
 {{ define "main" }}
-    <section>
-        <h1>Welcome to {{ .Site.Title }}</h1>
-        <p>{{ .Site.Params.description }}</p>
+<div class="blog-container">
+    <!-- Top Carousel with Three Random Article Cards -->
+    <div class="top-carousel-section">
+        <div class="categories-carousel">
+            {{ $allPosts := where .Site.RegularPages "Type" "posts" }}
+            {{ $randomPosts := shuffle $allPosts | first 3 }}
+            {{ range $randomPosts }}
+                <div class="category-card">
+                    <a href="{{ .Permalink }}" class="category-card-link">
+                        <div class="category-card-image">
+                            <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+                        </div>
+                        <div class="category-label">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}FEATURED{{ end }}</div>
+                        <h3 class="category-card-title">{{ .Title }}</h3>
+                    </a>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+    
+    <!-- Two Column Layout Section -->
+    <div class="two-column-section">
+        <!-- First Column: Featured Article + Article List -->
+        <div class="main-content-column">
+            <div class="divider-line"></div>
+            
+            <!-- Featured Post Section -->
+            {{ $featuredPost := first 1 (where .Site.RegularPages "Type" "posts") }}
+            {{ range $featuredPost }}
+                <div class="post-category">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}FEATURED{{ end }}</div>
+                
+                <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+                
+                <div class="post-meta">BY {{ with .Params.author }}{{ . }}{{ else }}PARLO TEAM{{ end }} | {{ .Date.Format "02.01.2006" }}</div>
+                
+                <div class="post-featured-image">
+                    <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+                </div>
+                
+                <div class="post-summary">
+                    {{ .Summary }}
+                </div>
+                
+                <div class="read-more-container">
+                    <a href="{{ .Permalink }}" class="read-more-link">READ MORE</a>
+                </div>
+            {{ end }}
+            
+            <div class="divider-line"></div>
+            
+            <!-- Article List Section - Two Column Cards -->
+            {{ $regularPosts := after 1 (where .Site.RegularPages "Type" "posts") }}
+            {{ range first 5 $regularPosts }}
+                <article class="article-entry-horizontal">
+                    <div class="article-image-column">
+                        <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+                    </div>
+                    
+                    <div class="article-content-column">
+                        <div class="category-tag">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}TIPS{{ end }}</div>
+                        
+                        <h2 class="article-title-horizontal"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                        
+                        <div class="article-meta">BY {{ with .Params.author }}{{ . }}{{ else }}PARLO TEAM{{ end }} | {{ .Date.Format "02.01.2006" }}</div>
+                        
+                        <p class="article-excerpt-horizontal">
+                            {{ .Summary | truncate 120 }}
+                        </p>
+                        
+                        <div class="read-more-link-horizontal">
+                            <a href="{{ .Permalink }}">READ MORE</a>
+                        </div>
+                    </div>
+                </article>
+                
+                <div class="divider-line"></div>
+            {{ end }}
+            
+            <div class="older-posts">
+                <a href="/posts" class="older-posts-link">OLDER POSTS</a>
+            </div>
+        </div>
+        
+        <!-- Second Column: About Parlo -->
+        <div class="sidebar-column">
+            <div class="about-section sticky-sidebar">
+                <div class="sidebar-heading">HEY THERE, WE'RE PARLO</div>
+                
+                <p>Parlo is not just another language app. There's no complicated grammar rules presented out of context, no boring flashcards, no robotic conversations. It's simply a place where you can learn French naturally, in real-world contexts and conversations, through all the fits and starts, all successes and mistakes.</p>
+                
+                <p>Occasionally, we share tips worldwide. Every now and then, we design new features. Sometimes, we help students become fluent. (Mostly, we make learning fun.)</p>
+                
+                <p class="more-link"><a href="https://parloapp.io/about-us">More here</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
 
-        {{ range first 3 (where .Site.RegularPages "Type" "post") }}
-            <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-        {{ end }}
-    </section>
+<!-- Add swipeable carousel functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('.categories-carousel');
+    if (!carousel) return;
+    
+    let startX, endX;
+    const threshold = 50; // minimum distance for swipe
+    let isDragging = false;
+    let startScrollLeft;
+    
+    // Detect touch or mouse events
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Get card width for pagination calculations
+    const getCardWidth = () => {
+        const card = carousel.querySelector('.category-card');
+        if (!card) return 0;
+        return card.offsetWidth + parseInt(window.getComputedStyle(card).marginRight);
+    };
+    
+    // Snap to nearest card
+    const snapToNearestCard = () => {
+        const cardWidth = getCardWidth();
+        if (cardWidth === 0) return;
+        
+        const scrollLeft = carousel.scrollLeft;
+        const nearestCardIndex = Math.round(scrollLeft / cardWidth);
+        
+        carousel.scrollTo({
+            left: nearestCardIndex * cardWidth,
+            behavior: 'smooth'
+        });
+    };
+    
+    if (isTouchDevice) {
+        // Touch events
+        carousel.addEventListener('touchstart', function(e) {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+            startScrollLeft = carousel.scrollLeft;
+            carousel.style.scrollBehavior = 'auto'; // Disable smooth scrolling during drag
+        });
+        
+        carousel.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            const x = e.touches[0].clientX;
+            const walk = (x - startX);
+            carousel.scrollLeft = startScrollLeft - walk;
+        });
+        
+        carousel.addEventListener('touchend', function(e) {
+            isDragging = false;
+            endX = e.changedTouches[0].clientX;
+            carousel.style.scrollBehavior = 'smooth'; // Enable smooth scrolling for snapping
+            handleSwipe();
+        });
+    } else {
+        // Mouse events
+        carousel.addEventListener('mousedown', function(e) {
+            e.preventDefault(); // Prevent text selection during drag
+            startX = e.clientX;
+            isDragging = true;
+            startScrollLeft = carousel.scrollLeft;
+            carousel.style.cursor = 'grabbing';
+            carousel.style.scrollBehavior = 'auto'; // Disable smooth scrolling during drag
+        });
+        
+        carousel.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.clientX;
+            const walk = (x - startX);
+            carousel.scrollLeft = startScrollLeft - walk;
+        });
+        
+        carousel.addEventListener('mouseup', function(e) {
+            isDragging = false;
+            carousel.style.cursor = 'grab';
+            endX = e.clientX;
+            carousel.style.scrollBehavior = 'smooth'; // Enable smooth scrolling for snapping
+            handleSwipe();
+        });
+        
+        carousel.addEventListener('mouseleave', function() {
+            if (isDragging) {
+                isDragging = false;
+                carousel.style.cursor = 'grab';
+                carousel.style.scrollBehavior = 'smooth';
+                snapToNearestCard();
+            }
+        });
+    }
+    
+    function handleSwipe() {
+        const distance = startX - endX;
+        
+        // If the swipe was significant enough
+        if (Math.abs(distance) > threshold) {
+            const cardWidth = getCardWidth();
+            
+            // Calculate direction
+            if (distance > 0) {
+                // Swipe left - go to next card
+                carousel.scrollBy({
+                    left: cardWidth,
+                    behavior: 'smooth'
+                });
+            } else {
+                // Swipe right - go to previous card
+                carousel.scrollBy({
+                    left: -cardWidth,
+                    behavior: 'smooth'
+                });
+            }
+        } else {
+            // If swipe wasn't significant, snap to nearest card
+            snapToNearestCard();
+        }
+    }
+    
+    // Set initial style
+    carousel.style.cursor = 'grab';
+    carousel.style.userSelect = 'none'; // Prevent text selection
+    
+    // Add dots navigation for mobile
+    if (window.innerWidth <= 768) {
+        const cards = carousel.querySelectorAll('.category-card');
+        if (cards.length > 1) {
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'carousel-dots';
+            
+            cards.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'carousel-dot';
+                if (index === 0) dot.classList.add('active');
+                
+                dot.addEventListener('click', () => {
+                    const cardWidth = getCardWidth();
+                    carousel.scrollTo({
+                        left: index * cardWidth,
+                        behavior: 'smooth'
+                    });
+                });
+                
+                dotsContainer.appendChild(dot);
+            });
+            
+            carousel.parentNode.appendChild(dotsContainer);
+            
+            // Update active dot on scroll
+            carousel.addEventListener('scroll', () => {
+                const cardWidth = getCardWidth();
+                const scrollPosition = carousel.scrollLeft;
+                const activeIndex = Math.round(scrollPosition / cardWidth);
+                
+                document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                    if (index === activeIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            });
+        }
+    }
+});
+</script>
 {{ end }}
