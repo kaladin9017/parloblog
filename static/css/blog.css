@@ -322,12 +322,7 @@
 }
 
 .post-summary {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin: 25px auto;
-  color: var(--color-gray-800);
-  text-align: center;
-  max-width: 650px;
+  display: none;
 }
 
 .read-more-container {
@@ -392,10 +387,14 @@
 
 /* Post Content */
 .post-content {
-  margin-top: 60px;
+  margin-top: 30px;
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--color-gray-800);
+}
+
+.post-content p {
+  margin-bottom: 20px;
 }
 
 .post-content h2 {
@@ -416,16 +415,55 @@
   margin-bottom: 15px;
 }
 
-.post-content p {
+.post-content ul, .post-content ol {
   margin-bottom: 20px;
+  padding-left: 25px;
+}
+
+.post-content li {
+  margin-bottom: 10px;
 }
 
 .post-content blockquote {
   border-left: 2px solid var(--color-dark);
   padding-left: 20px;
   margin-left: 0;
+  margin-bottom: 20px;
   color: var(--color-gray-600);
   font-style: italic;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 30px 0;
+}
+
+.post-content a {
+  color: var(--color-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+.post-content a:hover {
+  opacity: 0.8;
+}
+
+.post-content pre {
+  background-color: var(--color-gray-100);
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.post-content code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: var(--color-gray-100);
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
 /* Navigation between posts */
@@ -629,4 +667,12 @@
   color: var(--color-gray-800);
   text-align: center;
   max-width: 650px;
+}
+
+/* Reading Experience Improvements */
+@media (min-width: 768px) {
+  .post-content {
+    font-size: 1.1rem;
+    line-height: 1.85;
+  }
 } 

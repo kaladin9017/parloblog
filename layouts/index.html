@@ -38,12 +38,12 @@
                     <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
                 </div>
                 
-                <div class="post-summary">
-                    {{ .Summary }}
+                <div class="post-content">
+                    {{ .Content }}
                 </div>
                 
                 <div class="read-more-container">
-                    <a href="{{ .Permalink }}" class="read-more-link">READ MORE</a>
+                    <a href="{{ .Permalink }}" class="read-more-link">READ FULL ARTICLE</a>
                 </div>
             {{ end }}
             
