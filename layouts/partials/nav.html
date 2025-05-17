@@ -1,47 +1,85 @@
-<header>
+<header class="navbar-container">
     <nav class="navbar">
-        <a href="/" class="parlo-logo">
+        <!-- Logo + Text -->
+        <a href="{{ "/" | relURL }}" class="navbar-logo">
             <img src="{{ "images/parlo-logo-boy.png" | relURL }}" alt="Parlo Logo">
+            <span>Parlo</span>
         </a>
 
         <!-- Desktop Navigation -->
-        <div class="navbar-links-container">
-            <ul class="navbar-links">
-                <li><a href="/about">About</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/features">Features</a></li>
-                <li><a href="/pricing">Pricing</a></li>
-                <li><a href="/get-started" class="nav-button">Get Started</a></li>
-            </ul>
+        <div class="navbar-links">
+            <a href="https://parloapp.io/about-us" class="nav-link" target="_blank" rel="noopener noreferrer">About</a>
+            <a href="{{ "/faq" | relURL }}" class="nav-link">FAQ</a>
+            <a href="{{ "/get-started" | relURL }}" class="cta-button">Get Started</a>
         </div>
 
         <!-- Mobile Menu Button -->
-        <button id="mobile-menu-button" aria-label="Open Menu">
-            <i class="fas fa-bars"></i>  <!-- Use 'fas' instead of 'fa' -->
+        <button id="mobile-menu-button" class="mobile-menu-toggle" aria-label="Open Menu">
+            <span class="hamburger-icon"></span>
         </button>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div id="mobile-menu">
-        <button id="mobile-menu-button-close" aria-label="Close Menu">
-            <i class="fa fa-times"></i>
-        </button>
-        <ul>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blog">Blog</a></li>
-            <li>
-                <a href="/features">Features</a>
-                <button class="plus-icon" aria-label="Expand Submenu">
-                    <i class="fa fa-plus"></i>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="mobile-menu-container">
+            <div class="mobile-menu-header">
+                <a href="{{ "/" | relURL }}" class="navbar-logo">
+                    <img src="{{ "images/parlo-logo-boy.png" | relURL }}" alt="Parlo Logo">
+                    <span>Parlo</span>
+                </a>
+                <button id="mobile-menu-close" class="mobile-menu-close" aria-label="Close Menu">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
-                <ul id="category-submenu">
-                    <li><a href="/features/chat">Chat</a></li>
-                    <li><a href="/features/ai-assist">AI Assist</a></li>
-                    <li><a href="/features/analytics">Analytics</a></li>
-                </ul>
-            </li>
-            <li><a href="/pricing">Pricing</a></li>
-            <li><a href="/get-started">Get Started</a></li>
-        </ul>
+            </div>
+            <div class="mobile-menu-links">
+                <a href="https://parloapp.io/about-us" class="mobile-nav-link" target="_blank" rel="noopener noreferrer">About</a>
+                <a href="{{ "/faq" | relURL }}" class="mobile-nav-link">FAQ</a>
+                <a href="{{ "/get-started" | relURL }}" class="mobile-nav-link cta">Get Started</a>
+            </div>
+        </div>
     </div>
 </header>
+
+<script>
+(function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const body = document.body;
+
+    function openMobileMenu() {
+        mobileMenu.classList.add('active');
+        body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('active');
+        body.style.overflow = '';
+    }
+
+    if (mobileMenuButton) {
+        mobileMenuButton.addEventListener('click', openMobileMenu);
+    }
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+    }
+
+    // Close menu when clicking outside menu container
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target === mobileMenu) {
+            closeMobileMenu();
+        }
+    });
+
+    // Close menu when ESC key is pressed
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
+        }
+    });
+})();
+</script>

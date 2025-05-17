@@ -1,10 +1,11 @@
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ .Title }} | {{ .Site.Title }}</title>
-    <link href='{{ .Site.Params.favicon }}' rel='icon' type='image/x-icon'/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Site.Title }}{{ if not .IsHome }} - {{ .Title }}{{ end }}</title>
 
-    {{ $styles := resources.Get "scss/main.scss" | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+    <!-- Custom CSS for navigation -->
+    <link rel="stylesheet" href="{{ "css/navbar.css" | relURL }}">
+
+    <link rel="icon" href="{{ .Site.Params.favicon | relURL }}" type="image/x-icon">
+    <!-- Remove Font Awesome as we're using custom SVG for the mobile menu close icon -->
 </head>

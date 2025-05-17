@@ -23,7 +23,7 @@ googleAnalytics = ""
 [menu]
     [[menu.main]]
         name = "About"
-        url = "/about"
+        url = "/about-us"
     [[menu.main]]
         name = "Blog"
         url = "/blog"
