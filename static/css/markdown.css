@@ -1,0 +1,132 @@
+/* Markdown and Rich Text Styles */
+
+/* Drop cap styling */
+.dropcap {
+  font-size: 3.5rem;
+  line-height: 0.7;
+  float: left;
+  padding-right: 8px;
+  padding-top: 4px;
+  color: var(--color-dark, #4B28CE);
+  font-weight: 700;
+  font-family: 'Poppins', serif;
+}
+
+/* Blockquotes */
+.post-content blockquote {
+  border-left: 2px solid #4B28CE;
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+/* Pull quotes */
+.post-content blockquote.pullquote {
+  border-left: none;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: normal;
+  color: #4B28CE;
+  max-width: 80%;
+  margin: 40px auto;
+  position: relative;
+}
+
+.post-content blockquote.pullquote::before {
+  content: "\201C"; /* Left double quotation mark */
+  font-size: 4rem;
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  color: #d1d5db;
+  font-family: 'Georgia', serif;
+}
+
+.post-content blockquote.pullquote::after {
+  content: "\201D"; /* Right double quotation mark */
+  font-size: 4rem;
+  position: absolute;
+  bottom: -60px;
+  right: -20px;
+  color: #d1d5db;
+  font-family: 'Georgia', serif;
+}
+
+/* Links */
+.post-content a {
+  color: #4B28CE;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: opacity 0.2s;
+}
+
+.post-content a:hover {
+  opacity: 0.8;
+}
+
+/* Images */
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 30px 0;
+  border-radius: 4px;
+}
+
+/* Lists */
+.post-content ul, .post-content ol {
+  margin-bottom: 20px;
+  padding-left: 25px;
+}
+
+.post-content li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+/* Horizontal rule */
+.post-content hr {
+  margin: 40px 0;
+  border: none;
+  height: 1px;
+  background-color: #d1d5db;
+}
+
+/* Center alignment */
+.post-content .text-center, 
+.post-content center {
+  display: block;
+  text-align: center;
+  margin: 25px 0;
+}
+
+/* Attribution */
+.attribution {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 40px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+}
+
+/* Code blocks */
+.post-content pre {
+  background-color: #f3f4f6;
+  padding: 15px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.post-content code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: #f3f4f6;
+  padding: 2px 4px;
+  border-radius: 3px;
+} 

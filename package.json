@@ -1,5 +1,22 @@
 {
+  "name": "parloblog",
+  "version": "1.0.0",
+  "description": "Parlo Blog with Contentful integration",
+  "scripts": {
+    "dev": "hugo server -D",
+    "build": "hugo",
+    "fetch-content": "node fetchContent.js",
+    "start": "npm run fetch-content && npm run dev"
+  },
   "dependencies": {
-    "cypress": "^10.3.1"
-  }
+    "@contentful/rich-text-html-renderer": "^16.0.2",
+    "@contentful/rich-text-types": "^16.3.0",
+    "contentful": "^10.6.5",
+    "contentful-management": "^10.46.4",
+    "dotenv": "^16.3.1",
+    "mkdirp": "^3.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="article-list-section">
+    <div class="divider-line"></div>
+    
+    <div class="page-category">ARTICLES</div>
+    
+    <h1 class="page-title">{{ .Title }}</h1>
+    
+    <div class="page-description">
+        Explore our latest articles on French language learning, cultural insights, and practical tips for your language journey.
+    </div>
+    
+    <div class="divider-line"></div>
+    
+    {{ range .Pages }}
+    <article class="article-entry">
+        <div class="divider-line"></div>
+        
+        <div class="category-tag-centered">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}UNCATEGORIZED{{ end }}</div>
+        
+        <h2 class="article-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+        
+        <div class="article-image">
+            <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+        </div>
+        
+        <div class="article-content">
+            <div class="article-excerpt">
+                {{ .Summary | truncate 200 }}
+            </div>
+            
+            <div class="read-more-container">
+                <a href="{{ .Permalink }}" class="read-more-link">READ MORE</a>
+            </div>
+        </div>
+    </article>
+    {{ end }}
+    
+    <div class="divider-line"></div>
+    <div class="older-posts">
+        <a href="/posts" class="older-posts-link">ALL POSTS</a>
+    </div>
+</div>
+{{ end }} 
