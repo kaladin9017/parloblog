@@ -6,7 +6,10 @@
     "dev": "hugo server -D",
     "build": "hugo",
     "fetch-content": "node fetchContent.js",
-    "start": "npm run fetch-content && npm run dev"
+    "start": "npm run fetch-content && npm run dev",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "cypress run"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^16.0.2",
@@ -15,6 +18,9 @@
     "contentful-management": "^10.46.4",
     "dotenv": "^16.3.1",
     "mkdirp": "^3.0.1"
+  },
+  "devDependencies": {
+    "cypress": "^14.3.3"
   },
   "keywords": [],
   "author": "",
