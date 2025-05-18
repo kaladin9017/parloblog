@@ -27,3 +27,12 @@ googleAnalytics = ""
     [[menu.main]]
         name = "Blog"
         url = "/blog"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Suppress warnings
+ignoreErrors = ["error-disable-taxonomy"]
+ignoreLogs = ['warning-goldmark-raw-html']

@@ -25,33 +25,68 @@
         <div class="main-content-column">
             <div class="divider-line"></div>
             
-            <!-- Featured Post Section -->
-            {{ $featuredPost := first 1 (where .Site.RegularPages "Type" "posts") }}
-            {{ range $featuredPost }}
-                <div class="post-category">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}FEATURED{{ end }}</div>
-                
-                <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
-                
-                <div class="post-meta">BY {{ with .Params.author }}{{ . }}{{ else }}PARLO TEAM{{ end }} | {{ .Date.Format "02.01.2006" }}</div>
-                
-                <div class="post-featured-image">
-                    <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
-                </div>
-                
-                <div class="post-content">
-                    {{ .Content }}
-                </div>
-                
-                <div class="read-more-container">
-                    <a href="{{ .Permalink }}" class="read-more-link">READ FULL ARTICLE</a>
-                </div>
+            <!-- Featured Post Section - Uses isFeatured flag -->
+            {{ $featuredPosts := where .Site.RegularPages "Params.isFeatured" true }}
+            {{ $featuredPost := first 1 $featuredPosts }}
+            {{ if $featuredPost }}
+                {{ range $featuredPost }}
+                    <div class="post-category">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}FEATURED{{ end }}</div>
+                    
+                    <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+                    
+                    <div class="post-meta">BY {{ with .Params.author }}{{ . }}{{ else }}PARLO TEAM{{ end }} | {{ .Date.Format "02.01.2006" }}</div>
+                    
+                    <div class="post-featured-image">
+                        <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+                    </div>
+                    
+                    <div class="post-content">
+                        {{ .Content }}
+                    </div>
+                    
+                    <div class="read-more-container">
+                        <a href="{{ .Permalink }}" class="read-more-link">READ FULL ARTICLE</a>
+                    </div>
+                {{ end }}
+            {{ else }}
+                <!-- Fallback if no featured posts -->
+                {{ $featuredPost := first 1 (where .Site.RegularPages "Type" "posts") }}
+                {{ range $featuredPost }}
+                    <div class="post-category">{{ with .Params.categories }}{{ index . 0 | upper }}{{ else }}FEATURED{{ end }}</div>
+                    
+                    <h1 class="post-title"><a href="{{ .Permalink }}">{{ .Title }}</a></h1>
+                    
+                    <div class="post-meta">BY {{ with .Params.author }}{{ . }}{{ else }}PARLO TEAM{{ end }} | {{ .Date.Format "02.01.2006" }}</div>
+                    
+                    <div class="post-featured-image">
+                        <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
+                    </div>
+                    
+                    <div class="post-content">
+                        {{ .Content }}
+                    </div>
+                    
+                    <div class="read-more-container">
+                        <a href="{{ .Permalink }}" class="read-more-link">READ FULL ARTICLE</a>
+                    </div>
+                {{ end }}
             {{ end }}
             
             <div class="divider-line"></div>
             
-            <!-- Article List Section - Two Column Cards -->
-            {{ $regularPosts := after 1 (where .Site.RegularPages "Type" "posts") }}
-            {{ range first 5 $regularPosts }}
+            <!-- Article List Section - Two Column Cards (excluding featured post) -->
+            {{ $featuredPostsIDs := slice }}
+            {{ range (where .Site.RegularPages "Params.isFeatured" true) }}
+                {{ $featuredPostsIDs = $featuredPostsIDs | append .File.UniqueID }}
+            {{ end }}
+            
+            {{ $regularPosts := where .Site.RegularPages "Type" "posts" }}
+            {{ $filteredPosts := $regularPosts }}
+            {{ if len $featuredPostsIDs }}
+                {{ $filteredPosts = where $regularPosts "File.UniqueID" "not in" $featuredPostsIDs }}
+            {{ end }}
+            
+            {{ range first 5 $filteredPosts }}
                 <article class="article-entry-horizontal">
                     <div class="article-image-column">
                         <img src="{{ with .Params.featured_image }}{{ . }}{{ else }}/images/default-featured.jpg{{ end }}" alt="{{ .Title }}">
